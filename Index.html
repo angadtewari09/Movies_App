@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies App</title>
+    <link href="Style.css" type="text/css" rel="stylesheet">
+    <link href="https://fontmeme.com/permalink/210720/7635251dbea5ebe201a4c376f04f2308.png" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <span class="logo"><a href="#"><img id="logo" src="https://fontmeme.com/permalink/210720/24e4e7296c41ab814314786fa02a796f.png"></a></span>
+        <button style="text-decoration: none; color: white;background-color: #E50914;"><a href="" style="text-decoration: none; color: white;background-color: #E50914;">Source Code</a></button>
+    </header>
+    <main>
+        <div class="container">
+            <div class="jumbotron">
+                <h3 class="text-center">
+                    Search for any movie
+                </h3>
+                <div class="Seacrh-bar">
+                    <form  id="form">
+                        <input 
+                            type="text"
+                            placeholder="Search here..." 
+                            id="search" 
+                            class="search" 
+                            onfocus="this.value=''" 
+                            autocomplete="off">
+                            <span id="search-glass">Search</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+       <div class="information">
+       <!-- <div class="movie">
+            <img src="111343_Wonder_Woman_Teaser_D.jpg" alt="poster">
+            <div class="movie-info">
+                <h3>Movie Title</h3>
+                <span class="green" id="green">9.8</span>
+            </div>
+        </div>-->
+        <div class="movie">
+            <div class="face">
+                <img src="Black-Widow-ScreenX-Poster.jpg" alt="poster">
+            <div class="movie-info">
+                <h3>Movie Title</h3>
+                <span class="green" id="green">9.8</span>
+            </div>
+            </div>
+            <div class="overview">
+                <h2>Plot:</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, nesciunt?Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, qui.</p>
+            </div>
+        </div>
+       </div>
+    </main>
+</body>
+<script src="Script.js" type="text/javascript"></script>
+</html>
