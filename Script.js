@@ -10,18 +10,36 @@ const search_url = base_url + '/search/movie?' + api_key;
 
 const info = document.querySelector(".information");
 
+const previous = document.getElementById(`prev`);
+const next = document.getElementById(`next`);
+const current = document.getElementById(`next`);
+
+var currentPage = 1;
+var nextPage = 2;
+var previousPage = 0;
+var prevUrl = ``;
+var totalPages = 50;
+
 getMovies(api_url)
 function getMovies(api_url) {
-
-    fetch(api_url)
-    .then(function(response) { 
-        return response.json()
-    })
-    .then(function (data){
-        console.log(data.results);
-        showMovies(data.results);
-    })
-    .catch(error => console.log(error))
+    prevUrl = api_url;  
+        fetch(api_url)
+        .then(function(response) { 
+            return response.json()
+        })
+        .then(function (data){
+            console.log(data.results);
+            if(data.results.length !== 0){
+                showMovies(data.results);
+                currentPage = data.page;
+                totalPages = data.total_page;
+                nextPage = currentPage + 1;
+                previousPage = currentPage - 1;          
+            }else {
+                info.innerHTML= `<h1 class="no-reults">No Results Found<h1>`;
+            }
+        })
+        .catch(error => console.log(error))
 }
 /*
 getMovies(api_url);
@@ -98,3 +116,8 @@ function getMovies(url) {
     
 })
 
+next.addEventListener('click' , () => {
+    if(nextPage <= totalPages){
+        ShowNextPage(nextPage);
+    }
+})

@@ -3,12 +3,16 @@
     box-sizing: border-box;
     margin: 0;
     padding:0;
+    overflow-x: hidden;
+    transition: all ease-in-out 0.3s;
 }
 body {
     font-family: 'Poppins',sans-serif;
     margin:0;
     background: #000;
+    transition: all ease-in-out 0.3s;
 }
+
 #logo {
     width: 250px;
     height: auto;
@@ -19,12 +23,7 @@ header {
     justify-content: space-around;
     background: #080808;
 }
-header button {
-    width:191px;
-    height: 60px;
-    margin-top:auto;
-    margin-bottom: auto;
-}
+
 .container {
     display: flex;
     align-items: center;
@@ -93,8 +92,11 @@ input::placeholder {
 header button {
     margin-left: auto;
     padding: 15px;
-    padding-right:32px;
-    padding-left: 32px;
+    width:191px;
+    height: 60px;
+    margin-top:auto;
+    margin-bottom: auto;
+    overflow:hidden;
     color: white;
     text-decoration: none;
     font-family: 'Poppins',sans-serif;
@@ -106,11 +108,9 @@ header button {
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
-    transition: 0.3s ease-in-out;
+    transition: all ease-in-out 0.3s;
     
 }
-
-
 .movie {
     position: relative;
     width:360px;
@@ -118,7 +118,8 @@ header button {
     border-radius: 3px;
     background: linear-gradient(to left top,#202020,#E50914);
     padding-bottom:auto;
-    transition: .4s ease-in;
+    overflow-y: hidden;
+    transition: all ease-in-out 0.3s;
 }
 
 .movie img {
@@ -194,6 +195,28 @@ header button {
 .movie:hover .overview {
     display: block;
     transform: translateX(0%) ;
-    opacity: 0.8;
-    
+    opacity: 0.8;   
+}
+@media (max-width:1062px){
+
+}
+/* Pagination portion of the page */
+.pagination {
+     display: flex;
+     margin:10px 30px;
+     align-items:center;
+     color:white;
+     justify-content: center;
+}
+.page {
+    padding: 20px;
+}
+.page.disabled {
+    cursor: not-allowed;
+    color: grey;
+}
+.current {
+    padding:15px 25px;
+    border-radius: 50%;
+    border: 7.5px solid #E50914;
 }
