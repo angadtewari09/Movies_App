@@ -80,7 +80,7 @@ header {
     font-size:20px;
     font-family: 'Poppins',sans-serif;
     font-weight: bolder;
-    
+    overflow-y: hidden;
     cursor:pointer;
     
 }
@@ -132,8 +132,13 @@ header button {
     font-family: 'Poppins',sans-serif;
     font-weight: 100;
     margin-top: 0;
-    
     margin-right:15px;
+}
+.overview h1 {
+    font-size:1.7rem;
+}
+.overview h2{
+    font-size: 1.3rem;
 }
 .movie-info {
     color:white;
@@ -210,6 +215,7 @@ header button {
 }
 .page {
     padding: 20px;
+    cursor:pointer;
 }
 .page.disabled {
     cursor: not-allowed;
