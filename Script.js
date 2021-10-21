@@ -1,7 +1,4 @@
-//TMDB Api
-$("#next").on("click", function() {
-    $("body").scrollTop(0);
-});
+//The Movie DB API
 const api_key = "api_key=e296ec8b756d3d400034f9379f43d92f";
 const base_url = "https://api.themoviedb.org/3";
 const dicovery = "/discover/movie?sort_by=popularity.desc&";
@@ -40,7 +37,20 @@ function getMovies(api_url) {
                 //console.log(data.total_pages)
                 totalPages = data.total_pages;
                 nextPage = currentPage + 1;
-                previousPage = currentPage - 1;          
+                previousPage = currentPage - 1;  
+                
+                if(currentPage <= 1 ) {
+                    prev.classList.add('disabled');
+                    next.classList.remove('disabled');
+                }
+                else if(currentPage>= last) {
+                    prev.classList.remove('disabled');
+                    next.classList.add('disabled');
+                }
+                else {
+                    prev.classList.remove('disabled');
+                    next.classList.remove('disabled');
+                }
             }else {
                 info.innerHTML= `<h1 class="no-reults">No Results Found<h1>`;
             }
@@ -75,6 +85,7 @@ function getMovies(url) {
                 <br>
                 <h2> Release Date:</h2>  <p>${movie.release_date}</p>
                 <h2> Rating:</h2>  <p>${(vote_average).toFixed(2)}</p>
+                <h2>Cast:</h2>  <p></p>
                 <h2>Plot:</h2>
                 <p>${movie.overview}</p>
             </div>
@@ -130,18 +141,22 @@ next.addEventListener('click' , () => {
     console.log("hello world");
     if(nextPage <= totalPages){
         nextPage = nextPage;
-        //console.log(nextPage);
-        //console.log(totalPages);
-
         ShowNextPage(nextPage);
-        //console.log(intelement);
-        
-        window.scrollTo(0, 0);
+        window.scrollTo({
+            top:400,
+            behavior: 'smooth',
+            color:'red'
+        });
+    }
+})
+prev.addEventListener('click', () =>{
+    if(previousPage > 0) {
+        ShowNextPage(nextPage)
     }
 })
 
 function ShowNextPage(page) {
-    console.log('hello best friend')
+    //console.log('hello best friend')
   let urlsplit = prevUrl.split('?'); 
   let queryparams = urlsplit[1].split('&');
   let key = queryparams[queryparams.length -1].split('=');
@@ -160,10 +175,8 @@ function ShowNextPage(page) {
     getMovies(url);
   }
 }
-prev.addEventListener('click', () => {
-    console.log('welcome to the previous page');
-
-})
 function ShowPreviousPage(page) {
 
 }
+
+
