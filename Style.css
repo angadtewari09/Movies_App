@@ -93,8 +93,8 @@ input::placeholder {
 header button {
     margin-left: auto;
     padding: 15px;
-    width:191px;
-    height: 60px;
+    width: 10rem;
+    height: 56px;
     margin-top:auto;
     margin-bottom: auto;
     overflow:hidden;
@@ -103,7 +103,9 @@ header button {
     font-family: 'Poppins',sans-serif;
     font-weight: 600;
     border-radius: 15px;
-    font-size: 19px;
+    font-size: 17px;
+    border:none;
+    outline: none;
 }
 .information {
     display:flex;
