@@ -1,4 +1,11 @@
 //The Movie DB API
+/*
+ fetch(`https://api.themoviedb.org/3/movie/${result.id}/credits?language=en-US&api_key=e296ec8b756d3d400034f9379f43d92f`)
+                    .then(response => response.json())
+                    .then( (response) => { console.log(Object.values(response.cast[i++]) )     })
+                    .catch(err => console.error(err)) 
+*/
+
 const api_key = "api_key=e296ec8b756d3d400034f9379f43d92f";
 const base_url = "https://api.themoviedb.org/3";
 const dicovery = "/discover/movie?sort_by=popularity.desc&";
