@@ -5,7 +5,84 @@
                     .then( (response) => { console.log(Object.values(response.cast[i++]) )     })
                     .catch(err => console.error(err)) 
 */
-
+const genre = [
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 80,
+      "name": "Crime"
+    },
+    {
+      "id": 99,
+      "name": "Documentary"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    },
+    {
+      "id": 14,
+      "name": "Fantasy"
+    },
+    {
+      "id": 36,
+      "name": "History"
+    },
+    {
+      "id": 27,
+      "name": "Horror"
+    },
+    {
+      "id": 10402,
+      "name": "Music"
+    },
+    {
+      "id": 9648,
+      "name": "Mystery"
+    },
+    {
+      "id": 10749,
+      "name": "Romance"
+    },
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    },
+    {
+      "id": 10770,
+      "name": "TV Movie"
+    },
+    {
+      "id": 53,
+      "name": "Thriller"
+    },
+    {
+      "id": 10752,
+      "name": "War"
+    },
+    {
+      "id": 37,
+      "name": "Western"
+    }
+  ]
 const api_key = "api_key=e296ec8b756d3d400034f9379f43d92f";
 const base_url = "https://api.themoviedb.org/3";
 const dicovery = "/discover/movie?sort_by=popularity.desc&";
@@ -37,6 +114,7 @@ function getMovies(api_url) {
             return response.json()
         })
         .then(function (data){
+           
             //console.log(data.results);
             if(data.results.length !== 0){
                 showMovies(data.results);
@@ -50,7 +128,7 @@ function getMovies(api_url) {
                     prev.classList.add('disabled');
                     next.classList.remove('disabled');
                 }
-                else if(currentPage>= last) {
+                else if(currentPage>= data.totalPages) {
                     prev.classList.remove('disabled');
                     next.classList.add('disabled');
                 }
@@ -77,6 +155,7 @@ function getMovies(url) {
  function showMovies(data) {
     info.innerHTML = ``;
     data.forEach(movie => {
+        
         const {title,poster_path,vote_average,overview} = movie;
         const movie_element = document.createElement('div');
         movie_element.classList.add('movie');
@@ -91,13 +170,13 @@ function getMovies(url) {
                 <h1>${title}</h1>
                 <br>
                 <h2> Release Date:</h2>  <p>${movie.release_date}</p>
+                <h2>Genre:</h2>  <p>${ getGenreList( movie.genre_ids )}</p>
                 <h2> Rating:</h2>  <p>${(vote_average).toFixed(2)}</p>
-                <h2>Cast:</h2>  <p></p>
+                <h2>Cast:</h2>  <p>${getCast(movie.id)}</p>
                 <h2>Plot:</h2>
                 <p>${movie.overview}</p>
             </div>
         `;
-        
         info.appendChild(movie_element);
     });
  }
@@ -145,7 +224,7 @@ function getMovies(url) {
 
 
 next.addEventListener('click' , () => {
-    console.log("hello world");
+    
     if(nextPage <= totalPages){
         nextPage = nextPage;
         ShowNextPage(nextPage);
@@ -157,20 +236,29 @@ next.addEventListener('click' , () => {
     }
 })
 prev.addEventListener('click', () =>{
-    if(previousPage > 0) {
-        ShowNextPage(nextPage)
+    if( currentPage >= 1 ){
+        page = previousPage;
+        ShowNextPage( page );
+        window.scrollTo({
+            top:400,
+            behavior: 'smooth',
+            color:'red'
+        });
     }
 })
 
+//Show the next Page.
 function ShowNextPage(page) {
     //console.log('hello best friend')
+   
+document.getElementById("current").innerText = page
   let urlsplit = prevUrl.split('?'); 
   let queryparams = urlsplit[1].split('&');
   let key = queryparams[queryparams.length -1].split('=');
   
   if(key[0] != 'page'){
     let newurl = prevUrl + '&page=' +page;
-    console.log(newurl);
+    //console.log(newurl);
     getMovies(newurl);
   }
   else {
@@ -182,8 +270,83 @@ function ShowNextPage(page) {
     getMovies(url);
   }
 }
-function ShowPreviousPage(page) {
 
+//Show the Previous Page.
+function ShowPreviousPage(page) {
+ 
+    document.getElementById("current").innerText = page
+      //console.log('hello best friend')
+   
+      let urlsplit = prevUrl.split('?'); 
+      let queryparams = urlsplit[1].split('&');
+      let key = queryparams[queryparams.length -1].split('=');
+      
+      if(key[0] != 'page'){
+        let newurl = prevUrl + '&page=' +page-1;
+        //console.log(newurl);
+        getMovies(newurl);
+      }
+      else {
+        key[1]= page.toString();
+        let a = key.join('=');
+        queryparams[queryparams.length-1] =a;
+        let b = queryparams.join('&');
+        let url = urlsplit[0] + '?' +b;
+        getMovies(url);
+      }
 }
 
 
+const getCast = (movie_id) =>
+{
+    let array = [];
+    let cast_array = [];
+    fetch(`https://api.themoviedb.org/3/movie/${movie_id}/credits?language=en-US&api_key=e296ec8b756d3d400034f9379f43d92f`)
+    .then( res => res.json() )
+    .then( (data) => {
+        // console.log( data.cast ) 
+        // (data.cast).map( (item) => { 
+        //     array.push( item.name)
+        // })
+        // (data.cast).map( (item , index ) => {
+        //     console.log( item.name )
+        //     array.push( item )
+        // })
+
+        for (const key in data.cast) {
+            if ((data.cast).hasOwnProperty(key)) {
+                array.push( data.cast[key].name)
+            }
+        }
+        array.map( (item) => {
+            //console.log( item )
+            cast_array= [...cast_array, item ]
+            
+        })
+        //console.log( cast_array )
+        
+    })
+    .catch( err => console.log( err ))
+    //console.log( array)
+   
+    
+   console.log(  cast_array)
+    return array
+}
+function getGenreList( gen_list )
+{
+    let genre_array = []
+    gen_list.map( (item) => {
+
+        for (const key in genre) {
+            if (genre.hasOwnProperty(key)) {
+              if( genre[key].id == item ){
+                genre_array.push(genre[key].name)
+              }
+            }
+        }
+    })
+    
+    return genre_array;
+   
+}
